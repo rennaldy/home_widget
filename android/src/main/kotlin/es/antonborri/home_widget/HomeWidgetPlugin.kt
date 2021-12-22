@@ -17,7 +17,7 @@ import io.flutter.plugin.common.PluginRegistry
 
 /** HomeWidgetPlugin */
 class HomeWidgetPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
-        EventChannel.StreamHandler, PluginRegistry.NewIntentListener {
+    EventChannel.StreamHandler, PluginRegistry.NewIntentListener {
     private lateinit var channel: MethodChannel
     private lateinit var eventChannel: EventChannel
     private lateinit var context: Context
@@ -91,8 +91,8 @@ class HomeWidgetPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
                 }
             }
             "updateWidgetWithPackageName" -> {
-                val className = call.argument<String>("android")
-                val packageName = call.argument<String>("packageName")
+                val className = call.argument<String>("name")
+                val packageName = call.argument<String>("android")
                 try {
                     val javaClass = Class.forName("${packageName}.${className}")
                     val intent = Intent(context, javaClass)
@@ -140,17 +140,17 @@ class HomeWidgetPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
 
         private fun saveCallbackHandle(context: Context, dispatcher: Long, handle: Long) {
             context.getSharedPreferences(INTERNAL_PREFERENCES, Context.MODE_PRIVATE)
-                    .edit()
-                    .putLong(CALLBACK_DISPATCHER_HANDLE, dispatcher)
-                    .putLong(CALLBACK_HANDLE, handle)
-                    .apply()
+                .edit()
+                .putLong(CALLBACK_DISPATCHER_HANDLE, dispatcher)
+                .putLong(CALLBACK_HANDLE, handle)
+                .apply()
         }
 
         fun getDispatcherHandle(context: Context): Long =
-                context.getSharedPreferences(INTERNAL_PREFERENCES, Context.MODE_PRIVATE).getLong(CALLBACK_DISPATCHER_HANDLE, 0)
+            context.getSharedPreferences(INTERNAL_PREFERENCES, Context.MODE_PRIVATE).getLong(CALLBACK_DISPATCHER_HANDLE, 0)
 
         fun getHandle(context: Context): Long =
-                context.getSharedPreferences(INTERNAL_PREFERENCES, Context.MODE_PRIVATE).getLong(CALLBACK_HANDLE, 0)
+            context.getSharedPreferences(INTERNAL_PREFERENCES, Context.MODE_PRIVATE).getLong(CALLBACK_HANDLE, 0)
 
         fun getData(context: Context): SharedPreferences = context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
     }

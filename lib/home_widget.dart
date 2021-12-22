@@ -48,12 +48,14 @@ class HomeWidget {
   /// The name of the Android Widget must match the classname of the WidgetProvider
   /// The name of the iOS Widget must match the kind specified when creating the Widget
   static Future<bool?> updateWidgetWithPackageName({
-    String? androidName,
-    String? iOSName,
+    String? name,
+    String? androidPackage,
+    String? iOSNamePackage,
   }) {
     return _channel.invokeMethod('updateWidgetWithPackageName', {
-      'android': androidName,
-      'ios': iOSName,
+      'name': name,
+      'android': androidPackage,
+      'ios': iOSNamePackage,
     });
   }
 
