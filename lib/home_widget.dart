@@ -39,6 +39,24 @@ class HomeWidget {
     });
   }
 
+  /// Updates the HomeScreen Widget with package name
+  ///
+  /// Use this function to resolve error `No Widget found with Name AppWidgetProvider. Argument 'name' `
+  /// Android Widgets will look for [androidName] and then for [name]
+  /// iOS Widgets will look for [iOSName] and then for [name]
+  ///
+  /// The name of the Android Widget must match the classname of the WidgetProvider
+  /// The name of the iOS Widget must match the kind specified when creating the Widget
+  static Future<bool?> updateWidgetWithPackageName({
+    String? androidName,
+    String? iOSName,
+  }) {
+    return _channel.invokeMethod('updateWidgetWithPackageName', {
+      'android': androidName,
+      'ios': iOSName,
+    });
+  }
+
   /// Returns Data saved with [saveWidgetData]
   /// [id] of Data Saved
   /// [defaultValue] value to use if no data was found
